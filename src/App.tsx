@@ -1,9 +1,10 @@
 import './App.css';
-import Input from './Components/UI/Input';
+import IncomeSource from './Components/IncomeSource';
 
 function App() {
   return (
-    <div className="App">
+    <div className="container">
+      <IncomeSource />
     </div>
   );
 }

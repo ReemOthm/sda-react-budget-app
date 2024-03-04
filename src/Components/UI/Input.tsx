@@ -8,7 +8,7 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({type, placeholder, name, id,...rest}:IProps)=>{
-    return <input type={type} placeholder={placeholder} name={name} id={id} {...rest}/>
+    return <input className="input" type={type} placeholder={placeholder} name={name} id={id} {...rest}/>
 }
 
 export default Input;
