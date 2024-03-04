@@ -1,0 +1,9 @@
+.target-saving{
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+}
+
+.target-saving #transfer {
+    display: inline-block;
+}

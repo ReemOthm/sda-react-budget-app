@@ -10,15 +10,15 @@ const ExpenseSource = ({}:IProps)=>{
         <form>
             <label htmlFor="bill">
                 Expense source
-                <Input  type="numer" name="bill" id="bill" placeholder="Electricity bill" required/>
+                <Input type="text" name="bill" id="bill" placeholder="Electricity bill" required/>
             </label>
             <label htmlFor="amount">
                 Amount of expense
-                <Input  type="numer" name="amount" id="amount" required/>
+                <Input type="numer" name="amount" id="amount" required/>
             </label>
             <label htmlFor="date">
                 Date of expense
-                <Input  type="date" name="date" id="date" required/>
+                <Input type="date" name="date" id="date" required/>
             </label>
             <Button>Add expense</Button>
         </form>
