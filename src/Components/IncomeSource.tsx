@@ -7,21 +7,21 @@ interface IProps {
 
 const IncomeSource = ({}:IProps)=>{
     return (
-        <div>
+        <form>
             <label htmlFor="salary">
                 Income source
-                <Input  type="numer" name="salary" id="salary" placeholder="Salary"/>
+                <Input  type="text" name="salary" id="salary" placeholder="Salary" required/>
             </label>
             <label htmlFor="amount">
                 Amount of income
-                <Input  type="numer" name="amount" id="amount"/>
+                <Input  type="numer" name="amount" id="amount" required/>
             </label>
             <label htmlFor="date">
                 Date of income
-                <Input  type="date" name="date" id="date"/>
+                <Input  type="date" name="date" id="date" required/>
             </label>
             <Button>Add income</Button>
-        </div>
+        </form>
     )
 }
 

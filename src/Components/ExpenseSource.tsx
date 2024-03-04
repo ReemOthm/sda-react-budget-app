@@ -7,21 +7,21 @@ interface IProps {
 
 const ExpenseSource = ({}:IProps)=>{
     return (
-        <div>
+        <form>
             <label htmlFor="bill">
                 Expense source
-                <Input  type="numer" name="bill" id="bill" placeholder="Electricity bill"/>
+                <Input  type="numer" name="bill" id="bill" placeholder="Electricity bill" required/>
             </label>
             <label htmlFor="amount">
                 Amount of expense
-                <Input  type="numer" name="amount" id="amount"/>
+                <Input  type="numer" name="amount" id="amount" required/>
             </label>
             <label htmlFor="date">
                 Date of expense
-                <Input  type="date" name="date" id="date"/>
+                <Input  type="date" name="date" id="date" required/>
             </label>
             <Button>Add expense</Button>
-        </div>
+        </form>
     )
 }
 

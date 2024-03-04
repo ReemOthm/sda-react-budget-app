@@ -7,19 +7,19 @@ interface IProps {
 
 const Target = ({}:IProps)=>{
     return (
-        <div>
+        <form>
             <label htmlFor="target">
                 Set Target
-                <Input  type="numer" name="target" id="target"/>
+                <Input  type="numer" name="target" id="target" required/>
             </label>
-            <Button>Reset</Button>
+            <input type="reset" value='Reset' />
             <div>Current Saving: 0</div>
             <div>Target: 0</div>
             <label htmlFor="progress">
                 Progress: 0% 
                 <progress id="progress" value={0} max={100} />
             </label>
-        </div>
+        </form>
     )
 }
 
