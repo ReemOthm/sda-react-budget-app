@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import { IncomeSourceType } from "../Types";
+import { SourceType } from "../Types";
 import { v4 as uuidv4 } from 'uuid';
 
 const IncomeSource = ()=>{
@@ -12,7 +12,7 @@ const IncomeSource = ()=>{
     const dateRef = useRef<HTMLInputElement>(null);
 
     // ------------STATES-------------
-    const [incomeSources, setIncomeSources] = useState<IncomeSourceType[]>([]);
+    const [incomeSources, setIncomeSources] = useState<SourceType[]>([]);
     
     // ------------HANDLERS-------------
     const handleSubmit = (e:FormEvent)=>{

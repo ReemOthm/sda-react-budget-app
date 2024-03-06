@@ -1,4 +1,4 @@
-export type IncomeSourceType = {
+export type SourceType = {
     id: string,
     source: string,
     amount: number,
