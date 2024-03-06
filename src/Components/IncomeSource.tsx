@@ -1,18 +1,29 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import { SourceType } from "../Types";
+import { BalanceType, SourceType } from "../Types";
 import { v4 as uuidv4 } from 'uuid';
 
-const IncomeSource = ()=>{
+interface IProps{
+    setBalance: (sources:BalanceType)=>void
+}
 
-    // ------------Refferrences-------------
-    const sourceRef = useRef<HTMLInputElement>(null);
-    const amountRef = useRef<HTMLInputElement>(null);
-    const dateRef = useRef<HTMLInputElement>(null);
+const IncomeSource = ({setBalance}:IProps)=>{
 
     // ------------STATES-------------
     const [incomeSources, setIncomeSources] = useState<SourceType[]>([]);
+
+    // -----------useEffect-----------------
+    useEffect(()=>{
+        setBalance(prev=>{
+            return {...prev, incomes: incomeSources};
+        })
+    },[incomeSources]);
+
+    // ------------REFERENCES-------------
+    const sourceRef = useRef<HTMLInputElement>(null);
+    const amountRef = useRef<HTMLInputElement>(null);
+    const dateRef = useRef<HTMLInputElement>(null);
     
     // ------------HANDLERS-------------
     const handleSubmit = (e:FormEvent)=>{

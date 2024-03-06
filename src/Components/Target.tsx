@@ -1,12 +1,11 @@
 import { ChangeEvent, useState } from "react";
-import Button from "./UI/Button";
 import Input from "./UI/Input";
 
 interface IProps {
-
+    savingAmount: number
 }
 
-const Target = ({}:IProps)=>{
+const Target = ({savingAmount}:IProps)=>{
 
     // ---------------STATES-----------------
     const [target,setTarget] = useState(0)
@@ -17,14 +16,16 @@ const Target = ({}:IProps)=>{
         setTarget(Number(value))
     }
 
+    const handleReset = ()=> setTarget(0);
+
     return (
         <form>
             <label htmlFor="target">
                 Set Target
                 <Input type="numer" name="target" id="target" onChange={handleChange} required/>
             </label>
-            <input type="reset" value='Reset' />
-            <p>Current Saving: 0</p>
+            <input type="reset" value='Reset' onClick={handleReset} />
+            <p>Current Saving: {savingAmount}</p>
             <p>Target: {target}</p>
             <label htmlFor="progress">
                 Progress: 0% 

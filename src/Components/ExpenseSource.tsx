@@ -1,22 +1,29 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import { SourceType } from "../Types";
+import { BalanceType, SourceType } from "../Types";
 import { v4 as uuidv4 } from 'uuid';
 interface IProps {
-
+    setBalance: (sources:BalanceType)=>void
 }
 
-const ExpenseSource = ({}:IProps)=>{
+const ExpenseSource = ({setBalance}:IProps)=>{
     
-    // ------------Refferrences-------------
+    // ------------STATES-------------
+    const [expenseSources, setExpenseSources] = useState<SourceType[]>([]);
+
+    // -----------useEffect-----------------
+    useEffect(()=>{
+        setBalance(prev=>{
+            return {...prev, expense: expenseSources};
+        })
+    },[expenseSources]);
+    
+    // ------------REFERENCES-------------
     const sourceRef = useRef<HTMLInputElement>(null);
     const amountRef = useRef<HTMLInputElement>(null);
     const dateRef = useRef<HTMLInputElement>(null);
 
-    // ------------STATES-------------
-    const [expenseSources, setExpenseSources] = useState<SourceType[]>([]);
-    
     // ------------HANDLERS-------------
     const handleSubmit = (e:FormEvent)=>{
         e.preventDefault();
@@ -27,13 +34,14 @@ const ExpenseSource = ({}:IProps)=>{
                 amount: Number(amountRef.current.value),
                 date: new Date(dateRef.current.value),
             }
+
             setExpenseSources(prev=> [...prev, expense]);
+
             sourceRef.current.value = '';
             amountRef.current.value = '';
-            dateRef.current.value  = '';
+            dateRef.current.value  = '';        
         }
     }
-
 
     return (
         <div>
