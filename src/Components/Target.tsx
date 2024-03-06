@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Input from "./UI/Input";
 
 interface IProps {
@@ -8,13 +8,20 @@ interface IProps {
 const Target = ({savingAmount}:IProps)=>{
 
     // ---------------STATES-----------------
-    const [target,setTarget] = useState(0)
+    const [target,setTarget] = useState(0);
+    const [progressAmount,setProgressAmount] = useState(0);
 
     // ---------------HANDLERS-----------------
     const handleChange = (e:ChangeEvent<HTMLInputElement>)=>{
         const {value} = e.target;
         setTarget(Number(value))
     }
+
+    // -------------useEffect------------------
+    useEffect(()=>{
+        const progress = (savingAmount / target) * 100;
+        setProgressAmount(progress);
+    })
 
     const handleReset = ()=> setTarget(0);
 
@@ -28,8 +35,8 @@ const Target = ({savingAmount}:IProps)=>{
             <p>Current Saving: {savingAmount}</p>
             <p>Target: {target}</p>
             <label htmlFor="progress">
-                Progress: 0% 
-                <progress id="progress" value={0} max={100} />
+                Progress: {progressAmount}% 
+                <progress id="progress" value={progressAmount.toString()} max={100} />
             </label>
         </form>
     )
