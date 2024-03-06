@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
 import { BalanceType, SourceType } from "../Types";
+import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
 interface IProps {
     setBalance: (sources:BalanceType)=>void
@@ -43,6 +44,10 @@ const ExpenseSource = ({setBalance}:IProps)=>{
         }
     }
 
+    const handleDelete = (id:string)=>{
+        setExpenseSources(prev=> prev.filter(e=> e.id !== id));
+    }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -63,7 +68,10 @@ const ExpenseSource = ({setBalance}:IProps)=>{
             {expenseSources.length > 0 ? 
                 <ul>
                     {expenseSources.map((expense)=>{
-                        return  <li key={expense.id}>{expense.source}: {expense.amount}EUR on {expense.date.toString()}</li>
+                        return  <li key={expense.id}>
+                            <span>{expense.source}: {expense.amount}EUR on {expense.date.toString()}</span>
+                            <span title="Delete income?"><FaDeleteLeft className="icon--delete" onClick={()=>handleDelete(expense.id)} /></span>
+                        </li>
                     })}
                 </ul>
             : <p>No expense source</p>
