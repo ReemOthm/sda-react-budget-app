@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import { BalanceType, SourceType } from "../Types";
+import {SourceType } from "../Types/SourceType";
+import {BalanceType } from "../Types/BalanceType";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
 interface IProps {

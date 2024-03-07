@@ -4,8 +4,3 @@ export type SourceType = {
     amount: number,
     date: Date,
 }
-
-export type BalanceType = {
-    incomes: SourceType[],
-    expense: SourceType[],
-}

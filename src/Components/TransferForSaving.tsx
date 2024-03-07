@@ -1,7 +1,8 @@
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import './../styles/TransferForSaving.css';
-import { BalanceType } from "../Types";
+import './../styles/saving-transfer.css';
+import { SourceType } from "../Types/SourceType";
+import { BalanceType } from "../Types/BalanceType";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 interface IProps {

@@ -4,7 +4,7 @@ import ExpenseSource from './Components/ExpenseSource';
 import IncomeSource from './Components/IncomeSource';
 import Target from './Components/Target';
 import TransferForSaving from './Components/TransferForSaving';
-import { BalanceType } from './Types';
+import { BalanceType } from './Types/BalanceType';
 
 function App() {
 
