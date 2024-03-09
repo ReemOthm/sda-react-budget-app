@@ -72,7 +72,7 @@ const ExpenseSource = ({ balance, setBalance}:IProps)=>{
                     {expenseSources.map((expense)=>{
                         return  <li className="expense-li" key={expense.id}>
                             <span>{expense.source}: {expense.amount}EUR on {expense.date.toDateString()}</span>
-                            <span title="Delete income?" className="icon--delete" onClick={()=>handleDelete(expense.id)}><FaDeleteLeft /></span>
+                            <span title="Delete expense?" className="icon--delete" onClick={()=>handleDelete(expense.id)}><FaDeleteLeft /></span>
                         </li>
                     })}
                 </ul>

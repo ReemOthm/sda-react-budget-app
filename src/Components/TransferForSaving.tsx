@@ -23,7 +23,9 @@ const TransferForSaving = ({balance,savingAmount,setSavingAmount}:IProps)=>{
         const incomes = balance.incomes.reduce((total,income)=> total + income.amount ,0);
         const expense = balance.expense.reduce((total,expens)=> total + expens.amount ,0);
         const current = incomes - expense - savingAmount ;
-        setCurrentBalance(current);
+        if(current >= 0){
+            setCurrentBalance(current);
+        }
     });
 
     // ----------------HANDLERS--------------

@@ -7,6 +7,9 @@ import TransferForSaving from './Components/TransferForSaving';
 import { BalanceType } from './Types/BalanceType';
 import Header from './Components/Header';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
 
   // ------------STATES-------------
@@ -14,7 +17,7 @@ function App() {
     incomes : [],
     expense: [],
   });
-  
+
   const [savingAmount, setSavingAmount] = useState(0);
 
   return (
@@ -26,6 +29,8 @@ function App() {
         <Target savingAmount={savingAmount} />
       </div>
       <TransferForSaving balance={balance} savingAmount={savingAmount} setSavingAmount={setSavingAmount} />
+
+      <ToastContainer />
     </main>
   );
 }

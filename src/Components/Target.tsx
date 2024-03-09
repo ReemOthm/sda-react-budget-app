@@ -19,18 +19,23 @@ const Target = ({savingAmount}:IProps)=>{
 
     // -------------useEffect------------------
     useEffect(()=>{
-        const progress = (savingAmount / target) * 100;
-        setProgressAmount(progress);
+        if(savingAmount > 0 && target > 0){
+            const progress = (savingAmount / target) * 100;
+            setProgressAmount(progress);
+        }
     })
 
-    const handleReset = ()=> setTarget(0);
+    const handleReset = ()=> {
+        setTarget(0);
+        setProgressAmount(0);
+    }
 
     return (
         <div>
             <form>
                 <label htmlFor="target">
                     Set Target
-                    <Input type="numer" name="target" id="target" onChange={handleChange} required/>
+                    <Input type="number" name="target" id="target" onChange={handleChange} required/>
                 </label>
                 <input className="button" type="reset" value='Reset' onClick={handleReset} />
                 <p>Current Saving: {savingAmount}</p>
