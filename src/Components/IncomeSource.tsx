@@ -3,23 +3,24 @@ import Button from "./UI/Button";
 import Input from "./UI/Input";
 import { BalanceType } from "../Types/BalanceType";
 import { SourceType } from "../Types/SourceType";
+import '../styles/incomes-source.css';
+
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
 
 interface IProps{
-    setBalance: (sources:BalanceType)=>void
+    balance: BalanceType,
+    setBalance: (prev : BalanceType) => void 
 }
 
-const IncomeSource = ({setBalance}:IProps)=>{
+const IncomeSource = ({balance,setBalance}:IProps)=>{
 
     // ------------STATES-------------
     const [incomeSources, setIncomeSources] = useState<SourceType[]>([]);
 
     // -----------useEffect-----------------
-    useEffect(()=>{
-        setBalance(prev=>{
-            return {...prev, incomes: incomeSources};
-        })
+    useEffect(()=>{ 
+        setBalance({...balance, incomes: incomeSources});
     },[incomeSources]);
 
     // ------------REFERENCES-------------
@@ -68,13 +69,13 @@ const IncomeSource = ({setBalance}:IProps)=>{
             {incomeSources.length > 0 ? 
                 <ul>
                     {incomeSources.map((income)=>{
-                        return  <li key={income.id}>
-                            <span>{income.source}: {income.amount}EUR on {income.date.toString()}</span>
-                            <span title="Delete income?"><FaDeleteLeft className="icon--delete" onClick={()=>handleDelete(income.id)} /></span>
+                        return  <li className="income-li" key={income.id}>
+                            <span>{income.source}: {income.amount}EUR on {income.date.toDateString()}</span>
+                            <span title="Delete income?" onClick={()=>handleDelete(income.id)} className="icon--delete" ><FaDeleteLeft /></span>
                         </li>
                     })}
                 </ul>
-            : <p>No income source</p>
+            : <p className="text--center">No income source</p>
             }
         </div>
     )

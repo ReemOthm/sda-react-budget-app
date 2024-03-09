@@ -5,24 +5,24 @@ import IncomeSource from './Components/IncomeSource';
 import Target from './Components/Target';
 import TransferForSaving from './Components/TransferForSaving';
 import { BalanceType } from './Types/BalanceType';
+import Header from './Components/Header';
 
 function App() {
 
   // ------------STATES-------------
   const [balance, setBalance] = useState<BalanceType>({
     incomes : [],
-    expense: []
+    expense: [],
   });
   
   const [savingAmount, setSavingAmount] = useState(0);
 
-  console.log(balance);
-
   return (
     <main>
+      <Header />
       <div className="container-sources">
-        <IncomeSource setBalance={setBalance} />
-        <ExpenseSource setBalance={setBalance} />
+        <IncomeSource  balance={balance} setBalance={setBalance}/>
+        <ExpenseSource  balance={balance} setBalance={setBalance} />
         <Target savingAmount={savingAmount} />
       </div>
       <TransferForSaving balance={balance} savingAmount={savingAmount} setSavingAmount={setSavingAmount} />

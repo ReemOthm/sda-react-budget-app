@@ -26,19 +26,21 @@ const Target = ({savingAmount}:IProps)=>{
     const handleReset = ()=> setTarget(0);
 
     return (
-        <form>
-            <label htmlFor="target">
-                Set Target
-                <Input type="numer" name="target" id="target" onChange={handleChange} required/>
-            </label>
-            <input type="reset" value='Reset' onClick={handleReset} />
-            <p>Current Saving: {savingAmount}</p>
-            <p>Target: {target}</p>
-            <label htmlFor="progress">
-                Progress: {progressAmount}% 
-                <progress id="progress" value={progressAmount.toString()} max={100} />
-            </label>
-        </form>
+        <div>
+            <form>
+                <label htmlFor="target">
+                    Set Target
+                    <Input type="numer" name="target" id="target" onChange={handleChange} required/>
+                </label>
+                <input className="button" type="reset" value='Reset' onClick={handleReset} />
+                <p>Current Saving: {savingAmount}</p>
+                <p>Target: {target}</p>
+                <label htmlFor="progress">
+                    Progress: {progressAmount}% 
+                    <progress id="progress" value={progressAmount.toString()} max={100} />
+                </label>
+            </form>
+        </div>
     )
 }
 

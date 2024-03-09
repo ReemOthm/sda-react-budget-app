@@ -1,9 +1,33 @@
-.target-saving{
+.saving{
     width: fit-content;
     margin: auto;
     text-align: center;
 }
 
-.target-saving #transfer {
+.saving #transfer {
     display: inline-block;
+}
+
+.transfer{
+    display: flex;
+    align-items: center;
+}
+
+.transfer input{
+    margin: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.transfer button{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0;
+    border: 2px solid #cad8cf
+}
+
+.saving__balance{
+    background-color: #cad8cf;
+    border-radius: 6px;
+    font-weight: 700;
 }

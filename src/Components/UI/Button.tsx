@@ -5,7 +5,7 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement>{
 }
 
 const Button = ({children,...rest}:IProps)=>{
-    return <button {...rest}>{children}</button>
+    return <button className="button" {...rest}>{children}</button>
 }
 
 export default Button;

@@ -3,22 +3,23 @@ import Button from "./UI/Button";
 import Input from "./UI/Input";
 import {SourceType } from "../Types/SourceType";
 import {BalanceType } from "../Types/BalanceType";
+import '../styles/expense-source.css';
+
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
 interface IProps {
+    balance: BalanceType,
     setBalance: (sources:BalanceType)=>void
 }
 
-const ExpenseSource = ({setBalance}:IProps)=>{
+const ExpenseSource = ({ balance, setBalance}:IProps)=>{
     
     // ------------STATES-------------
     const [expenseSources, setExpenseSources] = useState<SourceType[]>([]);
 
     // -----------useEffect-----------------
     useEffect(()=>{
-        setBalance(prev=>{
-            return {...prev, expense: expenseSources};
-        })
+        setBalance({...balance, expense: expenseSources});
     },[expenseSources]);
     
     // ------------REFERENCES-------------
@@ -56,26 +57,26 @@ const ExpenseSource = ({setBalance}:IProps)=>{
                     Expense source
                     <Input ref={sourceRef} type="text" name="bill" id="bill" placeholder="Electricity bill" required/>
                 </label>
-                <label htmlFor="amount">
+                <label htmlFor="expense__amount">
                     Amount of expense
-                    <Input ref={amountRef} type="numer" name="amount" id="amount" required/>
+                    <Input ref={amountRef} type="numer" name="expense__amount" id="expense__amount" required/>
                 </label>
-                <label htmlFor="date">
+                <label htmlFor="expense__date">
                     Date of expense
-                    <Input ref={dateRef} type="date" name="date" id="date" required/>
+                    <Input ref={dateRef} type="date" name="expense__date" id="expense__date" required/>
                 </label>
                 <Button>Add expense</Button>
             </form>
             {expenseSources.length > 0 ? 
                 <ul>
                     {expenseSources.map((expense)=>{
-                        return  <li key={expense.id}>
-                            <span>{expense.source}: {expense.amount}EUR on {expense.date.toString()}</span>
-                            <span title="Delete income?"><FaDeleteLeft className="icon--delete" onClick={()=>handleDelete(expense.id)} /></span>
+                        return  <li className="expense-li" key={expense.id}>
+                            <span>{expense.source}: {expense.amount}EUR on {expense.date.toDateString()}</span>
+                            <span title="Delete income?" className="icon--delete" onClick={()=>handleDelete(expense.id)}><FaDeleteLeft /></span>
                         </li>
                     })}
                 </ul>
-            : <p>No expense source</p>
+            : <p className="text--center">No expense source</p>
             }
         </div>
     )
