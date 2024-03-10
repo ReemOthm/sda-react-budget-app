@@ -1,19 +1,30 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
 import {Source } from "../Types/Source";
 import {Balance } from "../Types/Balance";
 import '../styles/expense-source.css';
+import { notifySuccess } from "../Tostify";
+import { Inputs } from "../Types/Inputs";
 
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
-import { notifySuccess } from "../Tostify";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 interface Props {
     balance: Balance,
     setBalance: (sources:Balance)=>void
 }
 
 const ExpenseSource = ({ balance, setBalance}:Props)=>{
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState,
+        formState: { errors, isSubmitSuccessful },
+    } = useForm<Inputs>({ defaultValues: { source: "", amount: 0, date: '' } });
     
     // ------------STATES-------------
     const [expenseSources, setExpenseSources] = useState<Source[]>([]);
@@ -22,31 +33,24 @@ const ExpenseSource = ({ balance, setBalance}:Props)=>{
     useEffect(()=>{
         setBalance({...balance, expense: expenseSources});
     },[expenseSources]);
-    
-    // ------------REFERENCES-------------
-    const sourceRef = useRef<HTMLInputElement>(null);
-    const amountRef = useRef<HTMLInputElement>(null);
-    const dateRef = useRef<HTMLInputElement>(null);
 
-    // ------------HANDLERS-------------
-    const handleSubmit = (e:FormEvent)=>{
-        e.preventDefault();
-        if(sourceRef.current &&  amountRef.current && dateRef.current){
-            const expense = {
-                id: uuidv4(),
-                source: sourceRef.current.value,
-                amount: Number(amountRef.current.value),
-                date: new Date(dateRef.current.value),
-            }
-
-            setExpenseSources(prev=> [...prev, expense]);
-
-            notifySuccess('Expense has added Successfully!');
-
-            sourceRef.current.value = '';
-            amountRef.current.value = '';
-            dateRef.current.value  = '';        
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset()
         }
+    }, [formState, reset])
+    
+    // ------------HANDLERS-------------
+    const onSubmit: SubmitHandler<Inputs> = (data) =>{ 
+        const expense = {
+            id: uuidv4(),
+            source: data.source,
+            amount: Number(data.amount),
+            date: new Date(data.date),
+        }
+        setExpenseSources(prev=> [...prev, expense]);
+        
+        notifySuccess('Expense has added Successfully!');
     }
 
     const handleDelete = (id:string)=>{
@@ -55,18 +59,42 @@ const ExpenseSource = ({ balance, setBalance}:Props)=>{
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="expense_source">
                     Expense source
-                    <Input ref={sourceRef} type="text" name="expense_source" id="expense_source" placeholder="Electricity bill" required/>
+                    <Input 
+                    type="text" 
+                    id="expense_source" 
+                    placeholder="Electricity bill" 
+                    {...register('source',{
+                        required: 'This field is required',
+                        minLength: {value: 4, message: "income must be more than 4 characters"}
+                    })}
+                    />
+                    {errors.source && <span className="error-message">{errors.source.message}</span>}
                 </label>
                 <label htmlFor="expense_amount">
                     Amount of expense
-                    <Input ref={amountRef} type="number" name="expense_amount" id="expense_amount" required/>
+                    <Input 
+                    type="number" 
+                    id="expense_amount" 
+                    {...register('amount',{
+                        required: 'This field is required',
+                        min: {value: 1, message: "amount must be a positive number and more than 0"}
+                    })}
+                    />
+                    {errors.amount && <span className="error-message">{errors.amount.message}</span>}
                 </label>
                 <label htmlFor="expense_date">
                     Date of expense
-                    <Input ref={dateRef} type="date" name="expense_date" id="expense_date" required/>
+                    <Input 
+                    type="date" 
+                    id="expense_date" 
+                    {...register('date',{
+                        required: 'This field is required',
+                    })}
+                    />
+                    {errors.date && <span className="error-message">{errors.date.message}</span>}
                 </label>
                 <Button>Add expense</Button>
             </form>

@@ -2,8 +2,10 @@ import Button from "./UI/Button";
 import Input from "./UI/Input";
 import './../styles/saving-transfer.css';
 import { Balance } from "../Types/Balance";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { notifySuccess } from "../Tostify";
+
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
     balance: Balance,
@@ -11,13 +13,22 @@ interface Props {
     setSavingAmount: (saveAmount:number)=> void
 }
 
+type Transfer = {
+    amount: number
+}
+
 const TransferForSaving = ({balance,savingAmount,setSavingAmount}:Props)=>{
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState,
+        formState: { errors, isSubmitSuccessful },
+    } = useForm<Transfer>({ defaultValues: { amount: 0} });
 
     // ----------------STATES----------------
     const [currentBalance, setCurrentBalance] = useState(0);
-
-    // ----------------REFERENCES------------
-    const transferRef = useRef<HTMLInputElement>(null)
 
     // ----------------useEffect--------------
     useEffect(()=>{
@@ -31,27 +42,40 @@ const TransferForSaving = ({balance,savingAmount,setSavingAmount}:Props)=>{
         setCurrentBalance(current);
     });
 
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset()
+        }
+    }, [formState, reset])
+
     // ----------------HANDLERS--------------
-    const handleSubmit = (e:FormEvent)=>{
-        e.preventDefault();
-        if( Number(transferRef.current?.value) > currentBalance ){
-            console.log('noooooooooooo'); //error message instead of console
-            return false;
-        }
-        if(transferRef.current){
-            setSavingAmount(savingAmount + Number(transferRef.current.value));
-            transferRef.current.value = '';
-            notifySuccess('Transfered to saving account Successfully!');
-        }
+    const onSubmit: SubmitHandler<Transfer> = (data) =>{ 
+        setSavingAmount(savingAmount + Number(data.amount));
+        notifySuccess('Transfered to saving account Successfully!');
     }
 
     return (
-        <form className="saving" onSubmit={handleSubmit}>
+        <form className="saving" onSubmit={handleSubmit(onSubmit)}>
             <p className="saving__balance">Current balance: {currentBalance}</p>
             <label htmlFor="transfer_amount">
                 Transfer to saving account
                 <div className="transfer">
-                    <Input ref={transferRef} type="number" id="transfer_amount" name="transfer_amount" placeholder="Enter a value to transver"/>
+                    <Input 
+                    type="number" 
+                    id="transfer_amount" 
+                    placeholder="Enter a value to transver"
+                    {...register('amount',{
+                        min: {value: 1,
+                            message: 'amount must be a positive number and more than 0' 
+                        },
+                        max: {
+                            value: currentBalance,
+                            message: "No enough balance! \nSaving amount is greater than your balance"
+                        }
+                    })}
+                    required
+                    />
+                    {errors.amount && <span className="error-message">{errors.amount.message}</span>}
                     <Button>Transfer</Button>
                 </div>
             </label>

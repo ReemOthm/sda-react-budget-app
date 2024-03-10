@@ -1,11 +1,22 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Input from "./UI/Input";
 
+import { useForm } from "react-hook-form";
+
 interface Props {
     savingAmount: number
 }
 
+type Target = {
+    amount: number
+}
+
 const Target = ({savingAmount}:Props)=>{
+
+    const {
+        register,
+        formState: { errors },
+    } = useForm<Target>({mode: "onBlur"});
 
     // ---------------STATES-----------------
     const [target,setTarget] = useState(0);
@@ -37,7 +48,19 @@ const Target = ({savingAmount}:Props)=>{
             <form>
                 <label htmlFor="target_amount">
                     Set Target
-                    <Input type="number" name="target_amount" id="target_amount" onChange={handleChange} required/>
+                    <Input 
+                        type="number" 
+                        id="target_amount" 
+                        {...register("amount",{
+                            min: {
+                                value: 0,
+                                message: "Target must be a positive number!"
+                            }
+                        })}
+                        required
+                        onChange={handleChange} 
+                        />
+                    {errors.amount && <span className="error-message">{errors.amount.message}</span>}
                 </label>
                 <input className="button" type="reset" value='Reset' onClick={handleReset} />
                 <p>Current Saving: {savingAmount}</p>

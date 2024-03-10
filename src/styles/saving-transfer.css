@@ -9,20 +9,14 @@
 }
 
 .transfer{
-    display: flex;
-    align-items: center;
+    width: 250px;
 }
 
 .transfer input{
     margin: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
 }
 
 .transfer button{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    margin: 0;
     border: 2px solid #cad8cf
 }
 

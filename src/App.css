@@ -27,7 +27,7 @@ header{
   display: block;
   border-radius: 6px;
   padding: .5em;
-  margin-bottom: .3rem;
+  margin-bottom: .5rem;
   width: 100%;
   border: 2px solid #adbbb2
 }
@@ -47,6 +47,10 @@ input[type="reset"]{
 
 .button:hover{
   background-color: #adbbb2;
+}
+
+label{
+  display: block;
 }
 
 li{
@@ -79,6 +83,12 @@ li span:first-child{
   text-align: center;
 }
 
+.error-message{
+  display: block;
+  font-size: .9em;
+  color: red;
+  margin-bottom: .5rem;
+}
 
 @media screen and (max-width: 991px){
   .container-sources {
