@@ -1,31 +1,29 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Input from "./UI/Input";
 
-import { useForm } from "react-hook-form";
 
 interface Props {
     savingAmount: number
 }
 
-type Target = {
-    amount: number
-}
-
 const Target = ({savingAmount}:Props)=>{
 
-    const {
-        register,
-        formState: { errors },
-    } = useForm<Target>({mode: "onBlur"});
-
     // ---------------STATES-----------------
+    const [errorsMessage, setErrorsMessage] = useState('');
     const [target,setTarget] = useState(0);
     const [progressAmount,setProgressAmount] = useState(0);
 
     // ---------------HANDLERS-----------------
     const handleChange = (e:ChangeEvent<HTMLInputElement>)=>{
         const {value} = e.target;
-        setTarget(Number(value))
+        if(Number(value) < 0){
+            setErrorsMessage("Target must be a positive number");
+            return false;
+        }
+        else{
+            setErrorsMessage("");
+        }
+        setTarget(Number(value));
     }
 
     // -------------useEffect------------------
@@ -50,17 +48,12 @@ const Target = ({savingAmount}:Props)=>{
                     Set Target
                     <Input 
                         type="number" 
+                        name="target_amount"
                         id="target_amount" 
-                        {...register("amount",{
-                            min: {
-                                value: 0,
-                                message: "Target must be a positive number!"
-                            }
-                        })}
                         required
                         onChange={handleChange} 
                         />
-                    {errors.amount && <span className="error-message">{errors.amount.message}</span>}
+                    {errorsMessage && <span className="error-message">{errorsMessage}</span>}
                 </label>
                 <input className="button" type="reset" value='Reset' onClick={handleReset} />
                 <p>Current Saving: {savingAmount}</p>
