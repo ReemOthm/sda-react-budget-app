@@ -1,4 +1,4 @@
-export type SourceType = {
+export type Source = {
     id: string,
     source: string,
     amount: number,

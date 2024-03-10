@@ -1,10 +1,10 @@
 import { ReactNode, ButtonHTMLAttributes } from "react";
 
-interface IProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement>{
     children: ReactNode;
 }
 
-const Button = ({children,...rest}:IProps)=>{
+const Button = ({children,...rest}:Props)=>{
     return <button className="button" {...rest}>{children}</button>
 }
 

@@ -1,0 +1,41 @@
+.confirm{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: grid;
+    place-content: center;
+}
+
+.confirm > div{
+    background-color: white;
+    box-shadow: 0 0 10px #9b9999;
+    padding: 1em 2em;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.confirm h2{
+    margin: 0 ;
+    color:  rgb(206, 2, 2);
+}
+
+.confirm-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.confirm-buttons button{
+    margin: 0;
+}
+
+.confirm-buttons button:first-child{
+    background-color:  rgb(206, 2, 2);
+    color: white;
+}
+
+.confirm-buttons button:first-child:hover{
+    background-color: rgb(226, 9, 9);
+}

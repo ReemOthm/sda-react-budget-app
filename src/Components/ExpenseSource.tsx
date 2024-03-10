@@ -1,21 +1,22 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import {SourceType } from "../Types/SourceType";
-import {BalanceType } from "../Types/BalanceType";
+import {Source } from "../Types/Source";
+import {Balance } from "../Types/Balance";
 import '../styles/expense-source.css';
 
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
-interface IProps {
-    balance: BalanceType,
-    setBalance: (sources:BalanceType)=>void
+import { notifySuccess } from "../Tostify";
+interface Props {
+    balance: Balance,
+    setBalance: (sources:Balance)=>void
 }
 
-const ExpenseSource = ({ balance, setBalance}:IProps)=>{
+const ExpenseSource = ({ balance, setBalance}:Props)=>{
     
     // ------------STATES-------------
-    const [expenseSources, setExpenseSources] = useState<SourceType[]>([]);
+    const [expenseSources, setExpenseSources] = useState<Source[]>([]);
 
     // -----------useEffect-----------------
     useEffect(()=>{
@@ -40,6 +41,8 @@ const ExpenseSource = ({ balance, setBalance}:IProps)=>{
 
             setExpenseSources(prev=> [...prev, expense]);
 
+            notifySuccess('Expense has added Successfully!');
+
             sourceRef.current.value = '';
             amountRef.current.value = '';
             dateRef.current.value  = '';        
@@ -53,17 +56,17 @@ const ExpenseSource = ({ balance, setBalance}:IProps)=>{
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="bill">
+                <label htmlFor="expense_source">
                     Expense source
-                    <Input ref={sourceRef} type="text" name="bill" id="bill" placeholder="Electricity bill" required/>
+                    <Input ref={sourceRef} type="text" name="expense_source" id="expense_source" placeholder="Electricity bill" required/>
                 </label>
-                <label htmlFor="expense__amount">
+                <label htmlFor="expense_amount">
                     Amount of expense
-                    <Input ref={amountRef} type="numer" name="expense__amount" id="expense__amount" required/>
+                    <Input ref={amountRef} type="number" name="expense_amount" id="expense_amount" required/>
                 </label>
-                <label htmlFor="expense__date">
+                <label htmlFor="expense_date">
                     Date of expense
-                    <Input ref={dateRef} type="date" name="expense__date" id="expense__date" required/>
+                    <Input ref={dateRef} type="date" name="expense_date" id="expense_date" required/>
                 </label>
                 <Button>Add expense</Button>
             </form>

@@ -1,22 +1,23 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
-import { BalanceType } from "../Types/BalanceType";
-import { SourceType } from "../Types/SourceType";
+import { Balance } from "../Types/Balance";
+import { Source } from "../Types/Source";
 import '../styles/incomes-source.css';
 
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
+import { notifySuccess } from "../Tostify";
 
-interface IProps{
-    balance: BalanceType,
-    setBalance: (prev : BalanceType) => void 
+interface Props{
+    balance: Balance,
+    setBalance: (prev : Balance) => void,
 }
 
-const IncomeSource = ({balance,setBalance}:IProps)=>{
+const IncomeSource = ({balance,setBalance}:Props)=>{
 
     // ------------STATES-------------
-    const [incomeSources, setIncomeSources] = useState<SourceType[]>([]);
+    const [incomeSources, setIncomeSources] = useState<Source[]>([]);
 
     // -----------useEffect-----------------
     useEffect(()=>{ 
@@ -39,6 +40,9 @@ const IncomeSource = ({balance,setBalance}:IProps)=>{
                 date: new Date(dateRef.current.value),
             }
             setIncomeSources(prev=> [...prev, income]);
+
+            notifySuccess('Income has added Successfully!');
+
             sourceRef.current.value = '';
             amountRef.current.value = '';
             dateRef.current.value  = '';
@@ -52,17 +56,17 @@ const IncomeSource = ({balance,setBalance}:IProps)=>{
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="source">
+                <label htmlFor="income_source">
                     Income source
-                    <Input ref={sourceRef} type="text" name="source" id="source" placeholder="Salary" required/>
+                    <Input ref={sourceRef} type="text" name="income_source" id="income_source" placeholder="Salary" required/>
                 </label>
-                <label htmlFor="amount">
+                <label htmlFor="income_amount">
                     Amount of income
-                    <Input ref={amountRef}  type="numer" name="amount" id="amount" required/>
+                    <Input ref={amountRef}  type="number" name="income_amount" id="income_amount" required/>
                 </label>
-                <label htmlFor="date">
+                <label htmlFor="income_date">
                     Date of income
-                    <Input ref={dateRef}  type="date" name="date" id="date" required/>
+                    <Input ref={dateRef}  type="date" name="income_date" id="income_date" required/>
                 </label>
                 <Button>Add income</Button>
             </form>
