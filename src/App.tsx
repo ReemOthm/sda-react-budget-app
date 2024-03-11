@@ -1,39 +1,20 @@
-import React from 'react';
-import { useState } from 'react';
-import './App.css';
-import ExpenseSource from './Components/ExpenseSource';
-import IncomeSource from './Components/IncomeSource';
-import Target from './Components/Target';
-import TransferForSaving from './Components/TransferForSaving';
-import { Balance } from './Types/Balance';
-import Header from './Components/Header';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import BudgetPage from "./Components/Pages/BudgetPage";
+import ErrorPage from "./Components/Pages/ErrorPage";
+import Home from "./Components/Pages/Home";
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-function App() {
-
-  // ------------STATES-------------
-  const [balance, setBalance] = useState<Balance>({
-    incomes : [],
-    expense: [],
-  });
-
-  const [savingAmount, setSavingAmount] = useState(0);
-
-  return (
-    <main>
-      <Header />
-      <div className="container-sources">
-        <IncomeSource  balance={balance} setBalance={setBalance}/>
-        <ExpenseSource  balance={balance} setBalance={setBalance} />
-        <Target savingAmount={savingAmount} />
-      </div>
-      <TransferForSaving balance={balance} savingAmount={savingAmount} setSavingAmount={setSavingAmount} />
-
-      <ToastContainer />
-    </main>
-  );
+const App = ()=>{
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/budget-app" element={<BudgetPage />} />
+                    <Route path="*" element={<ErrorPage />} />
+                </Routes>
+            </BrowserRouter>
+        </>
+    )
 }
 
 export default App;
