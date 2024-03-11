@@ -1,12 +1,12 @@
 import Button from "./Button";
 import './../../styles/confirm-delete.css';
 
-interface Props {
+interface ConfirmDeleteProps {
     handelToggleConfirmOpen: ()=>void,
     handelToggleConfirmTrue:()=>void,
 }
 
-const ConfrmDelete = ({handelToggleConfirmOpen,handelToggleConfirmTrue}:Props)=>{
+const ConfrmDelete = ({handelToggleConfirmOpen,handelToggleConfirmTrue}:ConfirmDeleteProps)=>{
 
     // --------HANDLERS----------
     const handleDelete = ()=> {

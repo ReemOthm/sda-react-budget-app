@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import BudgetPage from "./Components/Pages/BudgetPage";
-import ErrorPage from "./Components/Pages/ErrorPage";
-import Home from "./Components/Pages/Home";
+import { ToastContainer } from 'react-toastify';
+
+import BudgetPage from "./Pages/BudgetPage";
+import ErrorPage from "./Pages/ErrorPage";
+import Home from "./Pages/Home";
 
 const App = ()=>{
     return (
@@ -13,6 +15,8 @@ const App = ()=>{
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </BrowserRouter>
+
+            <ToastContainer />
         </>
     )
 }

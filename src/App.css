@@ -14,11 +14,11 @@ header{
   gap: 50px;
 }
 
-.container-sources  div{
+.form-container{
   width: calc(70% / 3);
 }
 
-.container-sources  div form{
+.form-container form{
   width: 80%;
   margin: auto;
 }
@@ -95,10 +95,10 @@ li span:first-child{
     flex-direction: column;
     align-items: center;
   }
-  .container-sources div{
+  .form-container{
     width: 100%;
   }
-  .container-sources div li{
+  .form-container li{
     width: 70%;
   }
 }

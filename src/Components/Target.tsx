@@ -42,7 +42,7 @@ const Target = ({savingAmount}:Props)=>{
     }
 
     return (
-        <div>
+        <div className="form-container">
             <form>
                 <label htmlFor="target_amount">
                     Set Target
