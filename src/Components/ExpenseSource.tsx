@@ -58,7 +58,7 @@ const ExpenseSource = ({ balance, setBalance}:Props)=>{
     }
 
     return (
-        <div>
+        <div className="form-container">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="expense_source">
                     Expense source
