@@ -2,12 +2,12 @@ import { useCallback, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './../App.css';
-import ExpenseSource from '../Components/ExpenseSource';
-import IncomeSource from '../Components/IncomeSource';
-import Target from '../Components/Target';
-import TransferForSaving from '../Components/TransferForSaving';
-import { Balance } from '../Types/Balance';
-import Header from '../Components/Header';
+import ExpenseSource from '../components/ExpenseSource';
+import IncomeSource from '../components/IncomeSource';
+import Target from '../components/Target';
+import TransferForSaving from '../components/TransferForSaving';
+import { Balance } from '../types/Balance';
+import Header from '../components/Header';
 
 
 function BudgetPage() {
