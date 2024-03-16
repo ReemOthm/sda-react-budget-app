@@ -1,23 +1,23 @@
+import { useEffect, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Button from "./UI/Button";
 import Input from "./UI/Input";
 import './../styles/saving-transfer.css';
 import { Balance } from "../Types/Balance";
-import { useEffect, useState } from "react";
 import { notifySuccess } from "../Tostify";
-
-import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
     balance: Balance,
     savingAmount: number,
-    setSavingAmount: (saveAmount:number)=> void
+    setSaving: (saveAmount:number)=> void
 }
 
 type Transfer = {
     amount: number
 }
 
-const TransferForSaving = ({balance,savingAmount,setSavingAmount}:Props)=>{
+const TransferForSaving = ({balance,savingAmount,setSaving}:Props)=>{
 
     const {
         register,
@@ -50,7 +50,7 @@ const TransferForSaving = ({balance,savingAmount,setSavingAmount}:Props)=>{
 
     // ----------------HANDLERS--------------
     const onSubmit: SubmitHandler<Transfer> = (data) =>{ 
-        setSavingAmount(savingAmount + Number(data.amount));
+        setSaving(savingAmount + Number(data.amount));
         notifySuccess('Transfered to saving account Successfully!');
     }
 

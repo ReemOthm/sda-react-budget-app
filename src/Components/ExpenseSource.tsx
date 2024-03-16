@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { FaDeleteLeft } from "react-icons/fa6";
+import { v4 as uuidv4 } from 'uuid';
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Button from "./UI/Button";
 import Input from "./UI/Input";
 import {Source } from "../Types/Source";
@@ -7,16 +11,13 @@ import '../styles/expense-source.css';
 import { notifySuccess } from "../Tostify";
 import { Inputs } from "../Types/Inputs";
 
-import { FaDeleteLeft } from "react-icons/fa6";
-import { v4 as uuidv4 } from 'uuid';
-import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
     balance: Balance,
-    setBalance: (sources:Balance)=>void
+    setTotalBalance: (sources:Balance)=>void
 }
 
-const ExpenseSource = ({ balance, setBalance}:Props)=>{
+const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
 
     const {
         register,
@@ -31,7 +32,7 @@ const ExpenseSource = ({ balance, setBalance}:Props)=>{
 
     // -----------useEffect-----------------
     useEffect(()=>{
-        setBalance({...balance, expense: expenseSources});
+        setTotalBalance({...balance, expense: expenseSources});
     },[expenseSources]);
 
     useEffect(() => {

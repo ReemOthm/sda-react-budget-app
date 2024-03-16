@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './../App.css';
 import ExpenseSource from '../Components/ExpenseSource';
 import IncomeSource from '../Components/IncomeSource';
@@ -7,7 +9,6 @@ import TransferForSaving from '../Components/TransferForSaving';
 import { Balance } from '../Types/Balance';
 import Header from '../Components/Header';
 
-import 'react-toastify/dist/ReactToastify.css';
 
 function BudgetPage() {
 
@@ -19,17 +20,25 @@ function BudgetPage() {
 
   const [savingAmount, setSavingAmount] = useState(0);
 
+  const setSaving = useCallback((amount:number)=>{
+    setSavingAmount(amount);
+  },[]);
+
+  const setTotalBalance = useCallback((balance: Balance)=>{
+    setBalance(balance)
+  },[]);
+
   return (
     <>
       <Header />
       
       <div className="container-sources">
-        <IncomeSource  balance={balance} setBalance={setBalance}/>
-        <ExpenseSource  balance={balance} setBalance={setBalance} />
+        <IncomeSource  balance={balance} setTotalBalance={setTotalBalance}/>
+        <ExpenseSource  balance={balance} setTotalBalance={setTotalBalance} />
         <Target savingAmount={savingAmount} />
       </div>
 
-      <TransferForSaving balance={balance} savingAmount={savingAmount} setSavingAmount={setSavingAmount} />
+      <TransferForSaving balance={balance} savingAmount={savingAmount} setSaving={setSaving} />
     </>
   );
 }

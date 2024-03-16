@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import '../styles/home-page.css';
 
 import { Link } from "react-router-dom";
@@ -13,4 +14,4 @@ const Home = ()=>{
     )
 }
 
-export default Home;
+export default memo(Home);
