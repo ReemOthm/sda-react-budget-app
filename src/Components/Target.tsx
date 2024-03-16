@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
-import Input from "./UI/Input";
+import Input from "./ui/Input";
 
 
 interface Props {

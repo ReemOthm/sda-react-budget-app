@@ -3,13 +3,13 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import Button from "./UI/Button";
-import Input from "./UI/Input";
-import {Source } from "../Types/Source";
-import {Balance } from "../Types/Balance";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
+import {Source } from "../types/Source";
+import {Balance } from "../types/Balance";
 import '../styles/expense-source.css';
 import { notifySuccess } from "../Tostify";
-import { Inputs } from "../Types/Inputs";
+import { Inputs } from "../types/Inputs";
 
 
 interface Props {

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import Button from "./UI/Button";
-import Input from "./UI/Input";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 import './../styles/saving-transfer.css';
-import { Balance } from "../Types/Balance";
+import { Balance } from "../types/Balance";
 import { notifySuccess } from "../Tostify";
 
 interface Props {

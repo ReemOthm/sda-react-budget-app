@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
-import BudgetPage from "./Pages/BudgetPage";
-import ErrorPage from "./Pages/ErrorPage";
-import Home from "./Pages/Home";
+import BudgetPage from "./pages/BudgetPage";
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
 
 const App = ()=>{
     return (
