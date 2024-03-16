@@ -30,8 +30,8 @@ const TransferForSaving = ({balance,savingAmount,setSaving}:Props)=>{
     // ----------------STATES----------------
     const [currentBalance, setCurrentBalance] = useState(0);
 
-    // ----------------useEffect--------------
-    useEffect(()=>{
+    // -----------------Functions------------
+    const totalBalance = useMemo(()=>{
         const incomes = balance.incomes.reduce((total,income)=> total + income.amount ,0);
         const expense = balance.expense.reduce((total,expens)=> total + expens.amount ,0);
         const saving = savingAmount;
@@ -39,7 +39,12 @@ const TransferForSaving = ({balance,savingAmount,setSaving}:Props)=>{
         if(current > 0){
             current -= saving;
         }
-        setCurrentBalance(current);
+        return current;
+    },[balance, savingAmount]);
+
+    // ----------------useEffect--------------
+    useEffect(()=>{
+        setCurrentBalance(totalBalance);
     });
 
     useEffect(() => {
