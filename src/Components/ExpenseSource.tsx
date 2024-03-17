@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { v4 as uuidv4 } from 'uuid';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import Button from "./ui/Button";
 import Input from "./ui/Input";
@@ -10,6 +11,7 @@ import {Balance } from "../types/Balance";
 import '../styles/expense-source.css';
 import { notifySuccess } from "../Tostify";
 import { Inputs } from "../types/Inputs";
+import { SourceSchema } from "../types/SourceSchema";
 
 
 interface Props {
@@ -23,9 +25,11 @@ const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
         register,
         handleSubmit,
         reset,
-        formState,
-        formState: { errors, isSubmitSuccessful },
-    } = useForm<Inputs>({ defaultValues: { source: "", amount: 0, date: '' } });
+        formState: { errors },
+    } = useForm<Inputs>(
+        { defaultValues: { source: "", amount: 0, date: '' } ,
+        resolver: zodResolver(SourceSchema)
+    });
     
     // ------------STATES-------------
     const [expenseSources, setExpenseSources] = useState<Source[]>([]);
@@ -34,24 +38,20 @@ const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
     useEffect(()=>{
         setTotalBalance({...balance, expense: expenseSources});
     },[expenseSources]);
-
-    useEffect(() => {
-        if (isSubmitSuccessful) {
-            reset()
-        }
-    }, [formState, reset])
     
     // ------------HANDLERS-------------
     const onSubmit: SubmitHandler<Inputs> = (data) =>{ 
         const expense = {
             id: uuidv4(),
             source: data.source,
-            amount: Number(data.amount),
+            amount:data.amount,
             date: new Date(data.date),
         }
         setExpenseSources(prev=> [...prev, expense]);
         
         notifySuccess('Expense has added Successfully!');
+
+        reset();
     }
 
     const handleDelete = (id:string)=>{
@@ -67,10 +67,7 @@ const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
                     type="text" 
                     id="expense_source" 
                     placeholder="Electricity bill" 
-                    {...register('source',{
-                        required: 'This field is required',
-                        minLength: {value: 4, message: "income must be more than 4 characters"}
-                    })}
+                    {...register('source')}
                     />
                     {errors.source && <span className="error-message">{errors.source.message}</span>}
                 </label>
@@ -79,10 +76,7 @@ const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
                     <Input 
                     type="number" 
                     id="expense_amount" 
-                    {...register('amount',{
-                        required: 'This field is required',
-                        min: {value: 1, message: "amount must be a positive number and more than 0"}
-                    })}
+                    {...register('amount')}
                     />
                     {errors.amount && <span className="error-message">{errors.amount.message}</span>}
                 </label>
@@ -91,9 +85,7 @@ const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
                     <Input 
                     type="date" 
                     id="expense_date" 
-                    {...register('date',{
-                        required: 'This field is required',
-                    })}
+                    {...register('date')}
                     />
                     {errors.date && <span className="error-message">{errors.date.message}</span>}
                 </label>

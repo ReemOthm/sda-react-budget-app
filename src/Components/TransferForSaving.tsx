@@ -23,8 +23,7 @@ const TransferForSaving = ({balance,savingAmount,setSaving}:Props)=>{
         register,
         handleSubmit,
         reset,
-        formState,
-        formState: { errors, isSubmitSuccessful },
+        formState: { errors },
     } = useForm<Transfer>({ defaultValues: { amount: 0} });
 
     // ----------------STATES----------------
@@ -47,16 +46,11 @@ const TransferForSaving = ({balance,savingAmount,setSaving}:Props)=>{
         setCurrentBalance(totalBalance);
     });
 
-    useEffect(() => {
-        if (isSubmitSuccessful) {
-            reset()
-        }
-    }, [formState, reset])
-
     // ----------------HANDLERS--------------
     const onSubmit: SubmitHandler<Transfer> = (data) =>{ 
         setSaving(savingAmount + Number(data.amount));
         notifySuccess('Transfered to saving account Successfully!');
+        reset();
     }
 
     return (
