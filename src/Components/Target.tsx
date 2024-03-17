@@ -35,7 +35,7 @@ const Target = ({savingAmount}:TargetProps)=>{
         }
 
         if(target === 0) setProgressAmount(0);
-    })
+    }, [savingAmount, target]);
 
     const handleReset = ()=> {
         setTarget(0);
