@@ -13,12 +13,12 @@ import { notifySuccess } from "../Tostify";
 import { Inputs } from "../types/Inputs";
 import { SourceSchema } from "../types/SourceSchema";
 
-interface Props{
+interface IncomesProps{
     balance: Balance,
     setTotalBalance: (prev : Balance) => void,
 }
 
-const IncomeSource = ({balance,setTotalBalance}:Props)=>{
+const IncomeSource = ({balance,setTotalBalance}:IncomesProps)=>{
 
     const {
         register,

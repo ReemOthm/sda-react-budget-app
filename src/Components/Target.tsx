@@ -3,11 +3,11 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Input from "./ui/Input";
 
 
-interface Props {
+interface TargetProps {
     savingAmount: number
 }
 
-const Target = ({savingAmount}:Props)=>{
+const Target = ({savingAmount}:TargetProps)=>{
 
     // ---------------STATES-----------------
     const [errorsMessage, setErrorsMessage] = useState('');

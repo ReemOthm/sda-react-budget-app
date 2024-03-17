@@ -14,12 +14,12 @@ import { Inputs } from "../types/Inputs";
 import { SourceSchema } from "../types/SourceSchema";
 
 
-interface Props {
+interface ExpenseProps {
     balance: Balance,
     setTotalBalance: (sources:Balance)=>void
 }
 
-const ExpenseSource = ({ balance, setTotalBalance}:Props)=>{
+const ExpenseSource = ({ balance, setTotalBalance}:ExpenseProps)=>{
 
     const {
         register,

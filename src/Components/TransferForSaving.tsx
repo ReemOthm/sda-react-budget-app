@@ -7,7 +7,7 @@ import './../styles/saving-transfer.css';
 import { Balance } from "../types/Balance";
 import { notifySuccess } from "../Tostify";
 
-interface Props {
+interface TransfetProps {
     balance: Balance,
     savingAmount: number,
     setSaving: (saveAmount:number)=> void
@@ -17,7 +17,7 @@ type Transfer = {
     amount: number
 }
 
-const TransferForSaving = ({balance,savingAmount,setSaving}:Props)=>{
+const TransferForSaving = ({balance,savingAmount,setSaving}:TransfetProps)=>{
 
     const {
         register,
